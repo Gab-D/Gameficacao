@@ -1,0 +1,1 @@
+O app da gameficação foi um teste criado por desenvolvedores da empresa de engenharia elétrica da UFBA, com o objetivo de acompanhar a realização de projetos e o treinamento dos membros.

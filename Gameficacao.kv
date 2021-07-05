@@ -1,0 +1,911 @@
+#:import Factory kivy.factory.Factory
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+#:import RiseInTransition kivy.uix.screenmanager.RiseInTransition
+#:import WipeTransition kivy.uix.screenmanager.WipeTransition
+<MenuA>:
+    canvas:
+        Rectangle:
+            source: 'img/Landscape.png'
+            size: self.width, self.height
+    FloatLayout:
+        Image:
+            id: image1
+            source: 'img/eletrojrtitle2.png'
+            size_hint: None, None
+            size: 550,500
+            center_x: 400
+            center_y: 445
+            allow_stretch: True
+            keep_ratio: False
+        Button:
+            text: 'Tutorial'
+            size_hint: (None, None)
+            size: (350, 50)
+            background_color: (0.8, 1, 0.6, 1)
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            center_x: 400
+            center_y: 300
+
+            on_release:
+                root.manager.transition.duration = 1.5
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'MenuTutorial'
+                root.menu_som.stop()
+        Button:
+            text: 'Projetos'
+            size_hint: None, None
+            size: 350,50
+            center_x: 400
+            center_y: 225
+            background_color: (0.8,1,0.6,1)
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            on_release:
+                root.manager.transition.duration = 1.5
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'menuG'
+        Button:
+            text: 'Sair'
+            size_hint: None, None
+            size: 350,50
+            center_x: 400
+            center_y: 105
+            background_color: (0.8,1,0.6,1)
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            on_release:
+                app.root.get_screen('menual').confirmacaosaida()
+            
+        
+<ProjetosA>:
+    canvas:
+        Rectangle:
+            source: 'img/projetosbackground.png'
+            size: self.width, self.height
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 0, 0, 0, 0.7
+            Rectangle:
+                pos: 80, 52
+                size: 650,350
+        Button:
+            text: 'Voltar'
+            background_color: (0.6, 0.196, 0.8,1)
+            size_hint: None, None
+            size: 100,50
+            center_x: 745
+            center_y: 25
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            on_release:
+                root.manager.transition.duration = 1.5
+                root.manager.transition.direction = 'down'
+                root.manager.current = 'MenuA'
+
+
+
+<Departamentos>:
+
+    canvas:
+        Rectangle:
+            source: 'img/Tavern.png'
+            size: self.width, self.height
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 0, 0, 0, 0.7
+            Rectangle:
+                pos: 80, 52
+                size: 650,350
+        Button:
+            text: 'Voltar'
+            background_color: (0.447, 0.224, 0,1)
+            size_hint: None, None
+            size: 100,50
+            center_x: 55
+            center_y: 25
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            on_release:
+                root.manager.transition.duration = 1.5
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'MenuA'
+        Button:
+            text: '+'
+            background_color: (0,0,1,1)
+            size_hint: None, None
+            size: 20,20
+            center_x: 210
+            center_y: 72
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            on_release: root.up()
+        Button:
+            text: '-'
+            background_color: (1,0,0,1)
+            size_hint: None, None
+            size: 20,20
+            center_x: 180
+            center_y: 72
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            on_release: root.down()
+        Image:
+            source: root.img
+            size_hint: .15, .15
+            center_x: 190
+            center_y: 110
+            allow_stretch: True
+            keep_ratio: True
+
+<Trainee>
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, .6
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'img/dungeon.jpeg'
+    canvas:
+        Color:
+            rgba: 0.8, 1, 0.6, 1
+        Triangle:
+            points: 280,250, 280,300, 300,275
+        Triangle:
+            points: 500,250, 500,300, 520,275
+    BoxLayout:
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                ActionPrevious:
+                    title: 'Trainee'
+                    on_release:
+                        app.root.transition.duration = 1.5
+                        app.root.transition.direction = 'down'
+                        app.root.current = 'MenuTutorial'
+                ActionSeparator:
+                ActionButton:
+                    text: 'Mute'
+                    on_release:
+                        app.root.get_screen('MenuTutorial').menu_som.stop()
+                        app.root.get_screen('MenuTutorial').menu_som.loop = False
+                ActionSeparator:
+                ActionButton:
+                    text: 'Play'
+                    on_release:
+                        app.root.get_screen('MenuTutorial').menu_som.play()
+                        app.root.get_screen('MenuTutorial').menu_som.loop = True
+                ActionSeparator:
+                ActionButton:
+                    text: 'Sair'
+                    on_release: app.root.get_screen('menual').confirmacaosaida()
+        BoxLayout:
+            padding: 100
+            spacing: 50
+            BotaoAutocad:
+                on_release:
+                    root.autocad()
+            BotaoGerencia:
+                on_release:
+                    root.gerencia_de_projetos()
+            BotaoProjetos:
+                on_release:
+                    root.projeto_ficticio()
+
+<MenuTutorial>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 0.8
+        Rectangle:
+            size: self.width, self.height
+            source: 'img/Title_image.png'
+    FloatLayout:
+        orientation: 'vertical'
+        spacing: 30
+        padding: 100
+        Label:
+            text: 'Tutorial'
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 75
+            center_x: 50
+            center_y: 240
+        Button:
+            text: 'Gerente'
+            size_hint: (None, None)
+            size: (350, 50)
+            background_color: (0.8, 1, 0.6, 1)
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            center_x: 400
+            center_y: 375
+            on_release:
+                root.manager.transition.duration = 1.5
+                app.root.transition.direction = 'down'
+                app.root.current = 'gerente_de_projetos'
+        Button:
+            text: 'Trainee'
+            size_hint: (None, None)
+            size: (350, 50)
+            background_color: (0.8, 1, 0.6, 1)
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            center_x: 400
+            center_y: 300
+            on_release:
+                root.manager.transition.duration = 1.5
+                app.root.transition.direction = 'up'
+                app.root.current = 'trainee'
+        Button:
+            text: 'Arvore de Habilidades'
+            size_hint: (None, None)
+            size: (350, 50)
+            background_color: (0.8, 1, 0.6, 1)
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            center_x: 400
+            center_y: 225
+            on_release:
+                root.ArvoreDPJ()
+        Button:
+            text: 'Voltar'
+            size_hint: (None, None)
+            size: (350, 50)
+            background_color: (0.8, 1, 0.6, 1)
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            center_x: 400
+            center_y: 105
+            on_release:
+                root.manager.transition.duration = 1.5
+                app.root.transition.direction = 'right'
+                app.root.current = 'MenuA'
+                root.menu_som.stop()
+
+<MyPopup@Popup>:
+    auto_dismiss: False
+    size_hint: None, None
+    size: 700,300
+    title: 'SCRUM'
+    Button:
+        background_color: (0.447, 0.224, 0,1)
+        size_hint: None, None
+        size: 150,50
+        text: 'Habilitar'
+        font_name: 'font/joystix monospace.ttf'
+        font_size: 18
+        on_release:
+            app.root.gerente_de_projetos.scrum.background_normal = 'img/arv/Icone_Branco'
+            root.dismiss()
+
+<gerente_de_projetos>:
+    canvas:
+        Color:
+            rgba: 1, 1, 1, 0.3
+        Rectangle:
+            source: 'img/papel_de_papiro.png'
+            size: self.width, self.height
+    FloatLayout:
+        Button:
+            id: 'scrum'
+            size_hint: .11,.14
+            center_x: 160
+            center_y: 170
+            background_normal: 'img/arv/scrum_icon.png'
+            background_down: 'img/arv/scrum_icon_click.png'
+            on_release: root.scrumpopup()
+        Button:
+            id: 'CAD'
+            size_hint: .11,.14
+            center_x: 160
+            center_y: 260
+            background_normal: 'img/arv/CAD.png'
+            background_down: 'img/arv/CAD-press.png'
+            on_release: root.cadpopup()
+        Button:
+            id: 'Eficiencia'
+            size_hint: .11,.14
+            center_x: 160
+            center_y: 350
+            background_normal: 'img/arv/Eficiencia.png'
+            background_down: 'img/arv/Eficiencia-press.png'
+            on_release: root.eficienciapopup()
+        Button:
+            id: 'LNR10'
+            size_hint: .11,.14
+            center_x: 160
+            center_y: 440
+            background_normal: 'img/arv/LNR10.png'
+            background_down: 'img/arv/LNR10-press.png'
+            on_release: root.lnr10popup()
+        Button:
+            id: 'Gerencia'
+            size_hint: .11,.14
+            center_x: 310
+            center_y: 170
+            background_normal: 'img/arv/Gerencia.png'
+            background_down: 'img/arv/Gerencia-press.png'
+            on_release: root.gerenciapopup()
+        Button:
+            id: 'Revit'
+            size_hint: .11,.14
+            center_x: 310
+            center_y: 260
+            background_normal: 'img/arv/Revit.png'
+            background_down: 'img/arv/Revit-press.png'
+            on_release: root.revitpopup()
+        Button:
+            id: 'PIE'
+            size_hint: .11,.14
+            center_x: 460
+            center_y: 260
+            background_normal: 'img/arv/PIE.png'
+            background_down: 'img/arv/PIE-press.png'
+            on_release: root.piepopup()
+        Button:
+            id: 'CBE'
+            size_hint: .11,.14
+            center_x: 460
+            center_y: 170
+            background_normal: 'img/arv/CBE.png'
+            background_down: 'img/arv/CBE-press.png'
+            on_release: root.cbepopup()
+        Button:
+            id: 'PPE'
+            size_hint: .11,.14
+            center_x: 460
+            center_y: 80
+            background_normal: 'img/arv/PPE.png'
+            background_down: 'img/arv/PPE-press.png'
+            on_release: root.ppepopup()
+        Button:
+            id: 'CFTV'
+            size_hint: .11,.14
+            center_x: 460
+            center_y: 350
+            background_normal: 'img/arv/CFTV.png'
+            background_down: 'img/arv/CFTV-press.png'
+            on_release: root.cftvpopup()
+        Button:
+            id: 'SPDA'
+            size_hint: .11,.14
+            center_x: 460
+            center_y: 440
+            background_normal: 'img/arv/SPDA.png'
+            background_down: 'img/arv/SPDA-press.png'
+            on_release: root.spdapopup()
+        Button:
+            id: 'PFV'
+            size_hint: .11,.14
+            center_x: 460
+            center_y: 530
+            background_normal: 'img/arv/PFV.png'
+            background_down: 'img/arv/PFV-press.png'
+            on_release: root.pfvpopup()
+        Button:
+            id: 'Sub'
+            size_hint: .11,.14
+            center_x: 610
+            center_y: 80
+            background_normal: 'img/arv/Sub.png'
+            background_down: 'img/arv/Sub-press.png'
+            on_release: root.subpopup()
+        Button:
+            id: 'CDE'
+            size_hint: .11,.14
+            center_x: 610
+            center_y: 300
+            background_normal: 'img/arv/CDE.png'
+            background_down: 'img/arv/CDE-press.png'
+            on_release: root.cbepopup()
+        Button:
+            id: 'LUM'
+            size_hint: .11,.14
+            center_x: 610
+            center_y: 220
+            background_normal: 'img/arv/LUM.png'
+            background_down: 'img/arv/LUM-press.png'
+            on_release: root.lumpopup()
+        Button:
+            text: 'Voltar'
+            size_hint: (None, None)
+            size: (100, 50)
+            background_color: (0.8, 1, 0.6, 1)
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            center_x: 70
+            center_y: 50
+            on_release:
+                root.manager.transition.duration = 1.5
+                root.manager.transition.direction = 'up'
+                app.root.current = 'MenuTutorial'
+
+# Criação das Screens
+<DPJ>:
+	BoxLayout:
+		orientation: 'vertical'
+		ActionBar:
+			ActionView:
+				ActionPrevious:
+					title: 'DPJ'
+					on_release:
+					    root.manager.transition = FadeTransition()
+					    root.manager.transition.duration = 1.5
+						app.root.current = 'menuG'
+						root.manager.transition = SlideTransition()
+				ActionButton:
+					text: 'Sair'
+					on_release: app.root.get_screen('menual').confirmacaosaida()
+
+		BoxLayout:
+			orientation: 'horizontal'
+			padding: 20
+			spacing: 5
+			canvas:
+			    Color:
+                    rgba: 1, 1, 1, 0.6
+				Rectangle:
+					source: 'img/connor-wakes-conwak-sotn.jpg'
+					size: self.size
+
+			Image:
+				source: 'img/IMG_20200119_124314.jpg'
+				size: (200, 500)
+
+			BoxLayout:
+				orientation: 'vertical'
+				padding: 10
+				Label:
+					text: 'Departamento\n     de\n  Projetos'
+					font_size: 35
+					font_name: 'font/joystix monospace.ttf'
+				BoxLayout:
+					padding: 10
+					Image:
+						source: root.img
+						size: self.size
+						allow_stretch: True
+
+<MenuG>:
+	FloatLayout:
+		canvas:
+		    Color:
+		        rgba: 1, 1, 1, .8
+			Rectangle:
+				source: 'img/castle-artistic-art-4k-0g-2560x1700.jpg'
+				size: self.size
+		Label:
+		    text: 'Projetos'
+		    font_size: 85
+		    font_name: 'font/joystix monospace.ttf'
+			center_x: 60
+            center_y: 200
+		Button:
+			text: 'Acompanhamento'
+			size_hint: (None, None)
+            size: (350, 50)
+            background_color: (0.8, 1, 0.6, 1)
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            center_x: 400
+            center_y: 300
+			on_release:
+			    root.manager.transition = FadeTransition()
+                root.manager.transition.duration = 1.5
+				app.root.current = 'menual'
+                app.root.get_screen('menuG').sound.stop()
+                root.manager.transition = SlideTransition()
+		Button:
+			text: 'Barra de Vida'
+			size_hint: (None, None)
+            size: (350, 50)
+            background_color: (0.8, 1, 0.6, 1)
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            center_x: 400
+            center_y: 225
+			on_release:
+			    root.manager.transition = RiseInTransition()
+				root.manager.transition.duration = .5
+				app.root.current = 'dpj'
+				root.manager.transition = SlideTransition()
+		Button:
+			text: 'Voltar'
+			size_hint: (None, None)
+            size: (350, 50)
+            background_color: (0.8, 1, 0.6, 1)
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            center_x: 400
+            center_y: 105
+			on_release:
+			    app.root.transition.direction = 'left'
+				app.root.current = 'MenuA'
+				root.sound.stop()
+
+<ProjetosG>:
+	BoxLayout:
+		orientation: 'vertical'
+		canvas:
+			Rectangle:
+				source: 'img/catacumbas.jpg'
+				size: self.size
+		ActionBar:
+			ActionView:
+				ActionPrevious:
+					title: 'Projetos'
+					on_release:
+						root.manager.transition.duration = 1.5
+                		root.manager.transition.direction = 'down'
+                		app.root.current = 'menual'
+				ActionButton:
+					text: 'Sair'
+					on_release: app.root.get_screen('menual').confirmacaosaida()
+
+		ScrollView:
+			BoxLayout:
+				id: box
+				orientation: 'vertical'
+				size_hint_y: None
+				height: self.minimum_height
+
+		BoxLayout:
+			size_hint_y: None
+			height: 50
+			TextInput:
+				id: texto
+				font_size: 25
+				font_name: 'font/joystix monospace.ttf'
+			Button:
+				text: '+'
+				font_size: 25
+				size_hint_x: None
+				width: 70
+				font_name: 'font/joystix monospace.ttf'
+				on_release: root.addWidget()
+
+
+<Projeto>:
+	size_hint_y: None
+    height: 50
+	Label:
+		id: label
+		font_size: 20
+		font_name: 'font/joystix monospace.ttf'
+    Label:
+        background_normal: '1.png'
+        border: 0,0,0,0
+        size_hint_x: None
+        width: 80
+    Button:
+        text: 'x'
+        size_hint_x: None
+        width: 50
+        on_release:
+            on_release: app.root.get_screen('projetosG').removeWidget(root)
+
+
+<MenuAL>:
+    FloatLayout:
+        orientation: 'vertical'
+        padding: 110
+        spacing: 30
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 0.6
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: 'img/paisagem-pixel.jpg'
+        Label:
+            text: 'Acompanhamento'
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 60
+            center_x: 50
+            center_y: 220
+        Button:
+            text: 'Projetos Rodando'
+            size_hint: (None, None)
+            size: (350, 50)
+            background_color: (0.8, 1, 0.6, 1)
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            center_x: 400
+            center_y: 375
+            on_release:
+                root.manager.transition.direction = 'down'
+                root.manager.transition.duration = 1.5
+                app.root.current = 'painel'
+        Button:
+            text: 'Adicionar Projetos'
+            size_hint: (None, None)
+            size: (350, 50)
+            background_color: (0.8, 1, 0.6, 1)
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            center_x: 400
+            center_y: 300
+            on_release:
+                root.manager.transition = WipeTransition()
+                root.manager.transition.duration = 1.5
+                app.root.current = 'adicionarprojetos'
+                root.manager.transition = SlideTransition()
+
+        Button:
+            text: 'Banco de Projetos'
+            size_hint: (None, None)
+            size: (350, 50)
+            background_color: (0.8, 1, 0.6, 1)
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            center_x: 400
+            center_y: 225
+            on_release:
+                app.root.transition.direction = 'up'
+                app.root.transition.duration = 1.5
+                app.root.current = 'projetosG'
+        Button:
+            text: 'Voltar'
+            size_hint: (None, None)
+            size: (350, 50)
+            background_color: (0.8, 1, 0.6, 1)
+            font_name: 'font/joystix monospace.ttf'
+            font_size: 18
+            center_x: 400
+            center_y: 105
+            on_release:
+                app.root.transition = FadeTransition()
+                app.root.transition.duration = 1.5
+                app.root.current = 'menuG'
+                root.som_menual.stop()
+                root.manager.transition = SlideTransition()
+
+
+<Painel>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 20
+            padding: 10
+            canvas:
+                Color:
+                    rgba: 1, 1, 1, 0.6
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+                    source: 'img/nuvens-8bit.png'
+            Label:
+                text: 'Painel de Projetos'
+                font_size: 40
+                font_name: 'font/joystix monospace.ttf'
+                size_hint_y: None
+            ScrollView:
+                BoxLayout:
+                    id: box
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height
+        ActionBar:
+            ActionView:
+                ActionPrevious:
+                    title: 'Painel de Projetos'
+                    on_release:
+                        root.manager.transition.direction = 'up'
+					    root.manager.transition.duration = 1.5
+                        app.root.current = 'menual'
+                ActionButton:
+                    text: 'Sair'
+                    on_release: app.root.get_screen('menual').confirmacaosaida()
+
+<ProjetoAL>:
+    size_hint_y: None
+    height: 50
+    Button:
+        text: 'Ir'
+        size_hint_x: None
+        width: 50
+        on_release: app.root.get_screen('adicionarprojetos').card(root)
+        id:link
+    Label:
+        font_size: 20
+        font_name: 'font/joystix monospace.ttf'
+        id:label
+    Label:
+        background_normal: '1.png'
+        border: 0,0,0,0
+        size_hint_x: None
+        width: 80
+    Button:
+        text: 'x'
+        size_hint_x: None
+        width: 50
+        on_release:
+            app.root.get_screen('painel').removeWidget(root)
+            app.root.get_screen('adicionarprojetos').remove_link(root)
+<Boss>:
+    size_hint_y: None
+    height: 50
+    Button:
+        text: 'Ir'
+        size_hint_x: None
+        width: 50
+        on_release: app.root.get_screen('adicionarprojetos').card(root)
+        id:link
+    Label:
+        font_size: 20
+        font_name: 'font/joystix monospace.ttf'
+        id:label
+    Button:
+        background_normal: 'img/bowser-symbol.png'
+        border: 0,0,0,0
+        size_hint_x: None
+        width: 80
+    Button:
+        text: 'x'
+        size_hint_x: None
+        width: 50
+        on_release:
+            app.root.get_screen('painel').removeWidgetBoss(root)
+            app.root.get_screen('adicionarprojetos').remove_link(root)
+
+<AdicionarProjetos>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 0.6
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: 'img/paisagem-pixel4.jpg'
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 80
+            padding: 100
+            Label:
+                text: 'Tipo do Projeto'
+                font_size: 35
+                font_name: 'font/Minecrafter.Reg.ttf'
+            Button:
+                text: 'Projeto comum'
+                font_size: 20
+                font_name: 'font/Minecrafter.Reg.ttf'
+                on_release:
+                    app.root.transition.direction = 'left'
+                    app.root.transition.duration = 1.5
+                    app.root.get_screen('menual').som_menual.stop()
+                    app.root.current = 'adicionarprojeto'
+
+
+            Button:
+                text: 'Case'
+                font_size: 20
+                font_name: 'font/Minecrafter.Reg.ttf'
+                on_release:
+                    root.manager.transition.direction = 'right'
+                    root.manager.transition.duration = 1.5
+                    app.root.get_screen('menual').som_menual.stop()
+                    app.root.current = 'adicionarboss'
+
+        ActionBar:
+            ActionView:
+                ActionPrevious:
+                    title: 'Adicionar Projetos'
+                    on_release:
+                        root.manager.transition = WipeTransition()
+					    root.manager.transition.duration = 1.5
+                        app.root.current = 'menual'
+                        root.manager.transition = SlideTransition()
+                ActionButton:
+                    text: 'Sair'
+                    on_release: app.root.get_screen('menual').confirmacaosaida()
+
+<AdicionarProjeto>:
+
+    BoxLayout:
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 0.6
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: 'img/paisagem-pixel6.jpg'
+        BoxLayout:
+        BoxLayout:
+            Label:
+                text: 'INSIRA AQUI O PROJETO'
+                font_name: 'font/Minecrafter.Reg.ttf'
+                font_size: 40
+        BoxLayout:
+            size_hint_y: None
+            height: 50
+            TextInput:
+                font_size: 15
+                font_name: 'font/8-BIT WONDER.ttf'
+                id: nomeprojeto
+            Button:
+                text: '+'
+                size_hint_x: None
+                width: 60
+                on_release:
+                    app.root.get_screen('adicionarprojetos').link_projeto()
+        BoxLayout:
+        ActionBar:
+            ActionView:
+                ActionPrevious:
+                    title: 'Adicionar Projeto'
+                    on_release:
+                        root.manager.transition.direction = 'right'
+                        root.manager.transition.duration = 1.5
+                        app.root.current = 'adicionarprojetos'
+                ActionButton:
+                    text: 'Ver Projetos'
+                    on_release:
+                        root.manager.transition = WipeTransition()
+                        root.manager.transition.duration = 1.5
+                        app.root.current = 'painel'
+                        root.manager.transition = SlideTransition()
+                ActionButton:
+                    text: 'Sair'
+                    on_release: app.root.get_screen('menual').confirmacaosaida()
+
+
+<AdicionarBoss>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 0.6
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: 'img/paisagem-pixel5.jpg'
+        BoxLayout:
+        BoxLayout:
+            Label:
+                text: 'INSIRA AQUI O PROJETO'
+                font_name: 'font/Minecrafter.Reg.ttf'
+                font_size: 40
+        BoxLayout:
+            size_hint_y: None
+            height: 50
+            TextInput:
+                font_size: 15
+                font_name: 'font/8-BIT WONDER.ttf'
+                id: nomeprojeto
+            Button:
+                text: '+'
+                size_hint_x: None
+                width: 60
+                on_release:
+                    app.root.get_screen('adicionarprojetos').link_boss()
+                    root.som_boss.loop = False
+
+        BoxLayout:
+        ActionBar:
+            ActionView:
+                ActionPrevious:
+                    title: 'Adicionar Case'
+                    on_release:
+                        root.manager.transition.direction = 'left'
+                        root.manager.transition.duration = 1.5
+                        app.root.current = 'adicionarprojetos'
+                ActionButton:
+                    text: 'Ver Projetos'
+                    on_release:
+                        root.manager.transition = WipeTransition()
+                        root.manager.duration = 1.5
+                        app.root.current= 'painel'
+                        root.manager.transition = SlideTransition()
+                ActionButton:
+                    text: 'Sair'
+                    on_release: app.root.get_screen('menual').confirmacaosaida()
+
+
+
+
+
